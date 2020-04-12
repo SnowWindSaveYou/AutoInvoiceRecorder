@@ -17,12 +17,12 @@ def save_to_csv(invoice_data,filename):
     将识别记录写入给定文件夹下文件
     若无此文件则自动创建并写入表头
     """
-    if filename not in os.listdir():
+    if filename not in os.listdir("./data"):
         not_found = True
     else:
         not_found = False
 
-    with open(f"./{filename}", 'a+',newline='',encoding='utf-8-sig') as file:
+    with open(f"./data/{filename}", 'a+',newline='',encoding='utf-8-sig') as file:
         writer = csv.writer(file)
         if not_found:
             writer.writerow(invoice_data.keys())

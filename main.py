@@ -19,7 +19,10 @@ def main():
     print("视频捕获启动\n - q:退出 - space: 捕捉")
     while (True):
         _, frame = cap.read()      #读取图像并显示
-        cv2.imshow('frame', cv2.flip(frame,1,dst=None))  
+        # cv2.resize(frame, (50 , 50))
+        cv2.imshow('frame', 
+            cv2.resize(
+                cv2.flip(frame,1,dst=None), (480, 320))) 
        
         c = cv2.waitKey(1)&0xFF
         if c == ord('q'):  #按‘q’键退出后，释放摄像头资源
@@ -28,16 +31,9 @@ def main():
             print("退出系统")
             break
         elif c == ord('z'):   #按‘z’后，截取图像调用api
-            # cv2.imwrite("./test.jpg", frame)
-            # image = Image.fromarray(frame)
             img_str = cv2.imencode('.jpg', frame)[1].tostring()
             image_data = base64.b64encode(img_str)
-            scanner.scanimg(image_data)
-
-
-            
-
-    pass
+            scanner.scanimg(image_data)   
 
 if __name__ == "__main__":
     main()
